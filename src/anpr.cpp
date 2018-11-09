@@ -416,7 +416,8 @@ bool Anpr::recognizeLetters()
 		
 		for(size_t i = 0; i < l.plateAreaSymbols.size(); ++i)
 		{
-			cv::Mat recimage = cvCreateImage(cv::Size(100, 100), 8, 1);
+			cv::Mat recimage = cv::Mat(cv::Size(100, 100), CV_MAKETYPE(CV_8U, 1));
+
 			for(int i = 0; i < recimage.size().width; ++i)  
 				for(int j=0; j < recimage.size().height; ++j)  
 					recimage.at<unsigned char>(j, i) = 255;
@@ -427,7 +428,7 @@ bool Anpr::recognizeLetters()
 			int width	= l.plateAreaSymbols.at(i).width+l.plateAreaSymbols.at(i).width*0.05;
 			
  			cv::Mat subImg = (l.plate)(cv::Rect(minx, miny, width, height));
-			cv::Mat gray = cvCreateImage(subImg.size(), 8, 1);            
+			cv::Mat gray = cv::Mat(subImg.size(), CV_MAKETYPE(CV_8U, 1));
 			cv::cvtColor(subImg, gray, CV_RGB2GRAY);
 			cv::threshold(gray, gray, 0, 255, cv::THRESH_BINARY_INV | cv::THRESH_OTSU);
 			
